@@ -1,0 +1,15 @@
+.card {
+    @apply h-64 w-48 rounded-md p-4 flex flex-col justify-end items-center bg-red-900 flex-none relative;
+}
+
+.gradient {
+    @apply bg-gradient-to-t from-black via-transparent absolute bottom-0 left-0 w-full h-full z-10;
+}
+
+.title {
+    @apply text-xl font-bold text-white text-center z-20;
+}
+
+.poster {
+    @apply z-0 absolute top-0 left-0 w-full h-full object-cover;
+}

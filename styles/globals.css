@@ -1,0 +1,23 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+    background-color: #dedede;
+}
+
+nav {
+    @apply bg-blue-400 text-white;
+}
+
+a {
+    @apply font-bold;
+}
+
+.mainContainer {
+    @apply pt-8 px-16;
+}
+
+h1 {
+    @apply text-4xl font-bold;
+}
