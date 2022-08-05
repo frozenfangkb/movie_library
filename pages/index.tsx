@@ -18,7 +18,7 @@ const Home: NextPage<Props> = (props: Props) => {
       </Head>
       <div className="mainContainer flex flex-col gap-4">
         <h1>Explore popular movies</h1>
-        <div className="w-full bg-white shadow-2xl rounded-md py-4 px-8 flex gap-4 overflow-x-scroll">
+        <div className="itemsContainer">
           {latestMovies.map((movie) => (
             <MovieCard movie={movie} key={movie.id} />
           ))}

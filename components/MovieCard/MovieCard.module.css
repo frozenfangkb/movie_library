@@ -1,5 +1,5 @@
 .card {
-    @apply h-64 w-48 rounded-md p-4 flex flex-col justify-end items-center bg-red-900 flex-none relative;
+    @apply h-64 w-48 p-4 flex flex-col justify-end items-center bg-red-900 flex-none relative rounded-md;
 }
 
 .gradient {
