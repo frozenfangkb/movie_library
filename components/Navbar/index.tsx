@@ -19,9 +19,9 @@ export const Navbar: React.FC = () => {
         </Link>
         <Link
           className={router.pathname === "/" ? "active" : ""}
-          href="/categories"
+          href="/genres"
         >
-          Categories
+          Genres
         </Link>
       </div>
     </nav>

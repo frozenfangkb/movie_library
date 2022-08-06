@@ -1,5 +1,6 @@
 import { Movie } from "../../models/movie";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../index";
 
 export interface MovieState {
   movies: Movie[];
@@ -16,3 +17,9 @@ export const movieSlice = createSlice({
     },
   },
 });
+
+export const { setMovies } = movieSlice.actions;
+
+export const selectMovies = (state: RootState) => state.movies.movies;
+
+export default movieSlice.reducer;

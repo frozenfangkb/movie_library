@@ -6,15 +6,19 @@ import { GenreCard } from "../components/GenreCard";
 import { Movie } from "../models/movie";
 import axios from "axios";
 import { MovieCard } from "../components/MovieCard";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { selectMovies, setMovies } from "../store/slices/movieSlice";
 
 interface Props {
   genres: Genre[];
 }
 
-const Categories: React.FC<Props> = (props: Props) => {
+const Genres: React.FC<Props> = (props: Props) => {
+  const dispatch = useAppDispatch();
+  const movies = useAppSelector(selectMovies);
   const { genres } = props;
   const [selectedGenre, setSelectedGenre] = useState<Genre>({} as Genre);
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movieList, setMovieList] = useState<Movie[]>([]);
 
   const searchMoviesByGenre = async (genre: Genre) => {
     if (genre.id !== selectedGenre.id) {
@@ -22,7 +26,8 @@ const Categories: React.FC<Props> = (props: Props) => {
         `/api/search_movie_by_genre?genre=${genre.id}`
       );
       setSelectedGenre(genre);
-      setMovies(moviesResponse.data.movies ?? []);
+      dispatch(setMovies(moviesResponse.data.movies ?? []));
+      setMovieList(moviesResponse.data.movies ?? []);
     }
   };
 
@@ -36,11 +41,11 @@ const Categories: React.FC<Props> = (props: Props) => {
           </div>
         ))}
       </div>
-      {movies.length > 0 && (
+      {movieList.length > 0 && (
         <>
           <h1>Movies with genre {selectedGenre.name}</h1>
           <div className="gridContainer">
-            {movies.map((movie) => (
+            {movieList.map((movie) => (
               <MovieCard movie={movie} key={movie.id} />
             ))}
           </div>
@@ -64,4 +69,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default Categories;
+export default Genres;
