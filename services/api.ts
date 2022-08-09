@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Movie } from "../models/movie";
+import { MovieDetail } from "../models/movieDetail";
 
 export interface MovieDBResponse<T> {
   page: number;
@@ -11,6 +12,7 @@ export interface MovieDBResponse<T> {
 export interface APIResponse<T> {
   movies?: T[];
   error?: string;
+  movie?: MovieDetail;
 }
 
 export const api = axios.create({

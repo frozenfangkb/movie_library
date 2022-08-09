@@ -1,27 +1,45 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../store/hooks";
 import { selectMovies } from "../../store/slices/movieSlice";
-import { Movie } from "../../models/movie";
+import { MovieDetail } from "../../models/movieDetail";
+import { NextPage } from "next";
+import axios from "axios";
 
-const MovieDetail: React.FC = () => {
-  const router = useRouter();
-  const { id } = router.query;
+interface Props {
+  id: string;
+}
+
+const MovieDetail: NextPage<Props> = (props: Props) => {
+  const { id } = props;
   const movies = useAppSelector(selectMovies);
-  const [selectedMovie, setSelectedMovie] = useState<Movie>({} as Movie);
+  const [selectedMovie, setSelectedMovie] = useState<MovieDetail>(
+    {} as MovieDetail
+  );
+
+  const getMovie = async (): Promise<void> => {
+    if (id && id !== "") {
+      const mov = await axios.get<MovieDetail>(`/api/get_movie?id=${id}`);
+      setSelectedMovie(mov.data);
+    }
+  };
 
   useEffect(() => {
-    if (id && id !== "" && !isNaN(+id)) {
-      const movie = movies.find((x) => x.id === +id);
-      if (movie) {
-        setSelectedMovie(movie);
-      } else {
-        // TODO: Call API and retrieve movie by id
-      }
-    }
-  }, [id, movies]);
+    getMovie();
+  }, []);
 
-  return <div>ID is {id}</div>;
+  return (
+    <div>
+      <code>
+        <pre>{JSON.stringify(selectedMovie, null, 2)}</pre>
+      </code>
+    </div>
+  );
+};
+
+MovieDetail.getInitialProps = async (context): Promise<Props> => {
+  return {
+    id: context.query.id as string,
+  };
 };
 
 export default MovieDetail;
