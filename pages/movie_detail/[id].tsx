@@ -5,6 +5,7 @@ import { MovieDetail } from "../../models/movieDetail";
 import { NextPage } from "next";
 import axios from "axios";
 import { APIResponse } from "../../services/api";
+import { Loading } from "../../components/Loading";
 
 interface Props {
   id: string;
@@ -33,7 +34,7 @@ const MovieDetail: NextPage<Props> = (props: Props) => {
   }, []);
 
   if (Object.keys(selectedMovie).length === 0) {
-    return <div>Loading</div>;
+    return <Loading />;
   }
 
   return (
