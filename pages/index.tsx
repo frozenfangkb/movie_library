@@ -3,12 +3,14 @@ import Head from "next/head";
 import { api, MovieDBResponse } from "../services/api";
 import { Movie } from "../models/movie";
 import { MovieCard } from "../components/MovieCard";
+import { useRouter } from "next/router";
 
 interface Props {
   latestMovies: Movie[];
 }
 
 const Home: NextPage<Props> = (props: Props) => {
+  const router = useRouter();
   const { latestMovies } = props;
 
   return (
@@ -20,7 +22,13 @@ const Home: NextPage<Props> = (props: Props) => {
         <h1>Explore popular movies</h1>
         <div className="itemsContainer">
           {latestMovies.map((movie) => (
-            <MovieCard movie={movie} key={movie.id} />
+            <div
+              className="cursor-pointer"
+              onClick={() => router.push(`movie_detail/${movie.id}`)}
+              key={movie.id}
+            >
+              <MovieCard movie={movie} />
+            </div>
           ))}
         </div>
       </div>
