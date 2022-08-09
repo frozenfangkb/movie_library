@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { api, MovieDBResponse } from "../../services/api";
+import { api } from "../../services/api";
 import { MovieDetail } from "../../models/movieDetail";
 
 type Data = {
