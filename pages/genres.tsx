@@ -51,6 +51,7 @@ const Genres: React.FC<Props> = (props: Props) => {
               <div
                 onClick={() => router.push(`movie_detail/${movie.id}`)}
                 key={movie.id}
+                className="cursor-pointer"
               >
                 <MovieCard movie={movie} />
               </div>
