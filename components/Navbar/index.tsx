@@ -15,13 +15,13 @@ export const Navbar: React.FC = () => {
       </div>
       <div className="flex items-center justify-end gap-4">
         <Link className={router.pathname === "/" ? "active" : ""} href="/">
-          Home
+          <span className="text-white font-bold cursor-pointer"> Home</span>
         </Link>
         <Link
           className={router.pathname === "/" ? "active" : ""}
           href="/genres"
         >
-          Genres
+          <span className="text-white font-bold cursor-pointer">Genres</span>
         </Link>
       </div>
     </nav>

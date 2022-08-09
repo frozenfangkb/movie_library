@@ -8,12 +8,14 @@ import axios from "axios";
 import { MovieCard } from "../components/MovieCard";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectMovies, setMovies } from "../store/slices/movieSlice";
+import { useRouter } from "next/router";
 
 interface Props {
   genres: Genre[];
 }
 
 const Genres: React.FC<Props> = (props: Props) => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const movies = useAppSelector(selectMovies);
   const { genres } = props;
@@ -46,7 +48,13 @@ const Genres: React.FC<Props> = (props: Props) => {
           <h1>Movies with genre {selectedGenre.name}</h1>
           <div className="gridContainer">
             {movieList.map((movie) => (
-              <MovieCard movie={movie} key={movie.id} />
+              <div
+                onClick={() => router.push(`movie_detail/${movie.id}`)}
+                key={movie.id}
+                className="cursor-pointer"
+              >
+                <MovieCard movie={movie} />
+              </div>
             ))}
           </div>
         </>
