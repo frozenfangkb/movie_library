@@ -9,6 +9,7 @@ import { MovieCard } from "../components/MovieCard";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectMovies, setMovies } from "../store/slices/movieSlice";
 import { useRouter } from "next/router";
+import { Loading } from "../components/Loading";
 
 interface Props {
   genres: Genre[];
@@ -21,17 +22,24 @@ const Genres: React.FC<Props> = (props: Props) => {
   const { genres } = props;
   const [selectedGenre, setSelectedGenre] = useState<Genre>({} as Genre);
   const [movieList, setMovieList] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const searchMoviesByGenre = async (genre: Genre) => {
     if (genre.id !== selectedGenre.id) {
+      setLoading(true);
       const moviesResponse = await axios.get<APIResponse<Movie>>(
         `/api/search_movie_by_genre?genre=${genre.id}`
       );
       setSelectedGenre(genre);
       dispatch(setMovies(moviesResponse.data.movies ?? []));
+      setLoading(false);
       setMovieList(moviesResponse.data.movies ?? []);
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="mainContainer flex flex-col gap-4">

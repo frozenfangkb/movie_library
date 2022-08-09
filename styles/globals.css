@@ -40,3 +40,7 @@ h1 {
     width: calc(100% - 75px);
     height: calc(100% - 75px);
 }
+
+.fullHeight {
+    height: calc(100vh - 150px);
+}
